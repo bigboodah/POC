@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>List IPs</title>
+</head>
+<body>
+	<h1>IP List</h1>
+	<p> This is a shitty script, but gets the job done. It generates a list of IP ranges. Be sure to modify the ip variable in the for loop to change the IP address
+	<ul id="ip-list"></ul>
+
+	<script>
+		let ips = [];
+		let list = document.getElementById("ip-list");
+
+		for (let i = 1; i <= 255; i++) {
+		  let ip = "192.168.0." + i;
+		  ips.push(ip);
+		  let listItem = document.createElement("li");
+		  listItem.appendChild(document.createTextNode(ip));
+		  list.appendChild(listItem);
+		}
+	</script>
+</body>
+</html>
