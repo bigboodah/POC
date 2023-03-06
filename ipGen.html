@@ -1,24 +1,111 @@
 <!DOCTYPE html>
+<!--IP Range Generator-->
 <html>
-<head>
-	<title>List IPs</title>
-</head>
-<body>
-	<h1>IP List</h1>
-	<p> Generate a list of IP ranges. See the comment in the script tag. </p>
-	<ul id="ip-list"></ul>
+  <head>
+    <title>IP Range Generator</title>
+    <style>
+      body {
+        background-color: #222;
+        color: #fff;
+        font-family: sans-serif;
+        font-size: 16px;
+        line-height: 1.5;
+        margin: 0;
+        padding: 0;
+      }
 
-	<script>
-		let ips = [];
-		let list = document.getElementById("ip-list");
+      h1, h2, h3, h4, h5, h6 {
+        margin-top: 0;
+      }
 
-		for (let i = 1; i <= 255; i++) {
-		  let ip = "192.168.0." + i; // <-- Change me manually
-		  ips.push(ip);
-		  let listItem = document.createElement("li");
-		  listItem.appendChild(document.createTextNode(ip));
-		  list.appendChild(listItem);
-		}
-	</script>
-</body>
+      label {
+        display: block;
+        margin-bottom: 10px;
+      }
+
+      input[type="text"] {
+        font-size: 16px;
+        padding: 10px;
+        border: none;
+        border-radius: 5px;
+        background-color: rgba(255, 255, 255, 0.1);
+        color: #fff;
+        margin-bottom: 20px;
+      }
+
+      button {
+        font-size: 16px;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 5px;
+        background-color: #A11EF5;
+        color: #fff;
+        cursor: pointer;
+        margin-right: 10px;
+      }
+
+      button:hover {
+        background-color: #5E019B;
+      }
+
+      ul {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+      }
+
+      li {
+        margin-bottom: 5px;
+      }
+
+      #copy-button {
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        background-color: #A11EF5;
+        color: #fff;
+        border: none;
+        padding: 10px;
+        font-size: 16px;
+        border-radius: 5px;
+        cursor: pointer;
+      }
+
+      #copy-button:hover {
+        background-color: #5E019B;
+      }
+    </style>
+  </head>
+  <body>
+  
+    <label for="user-input">Enter the IP range:</label>
+    <input type="text" id="user-input" name="user-input">
+    <button onclick="displayUserInput()">Run</button>
+    <ul id="ip-list"></ul>
+    <button id="copy-button" onclick="copyToClipboard()">Copy to clipboard</button>
+
+    <script>
+      function displayUserInput() {
+        const userInput = document.getElementById("user-input").value;
+        const ipSegments = userInput.split(".");
+        const ipAddress = ipSegments.slice(0, 3).join(".");
+        
+        let ips = [];
+        let list = document.getElementById("ip-list");
+
+        for (let i = 0; i <= 255; i++) {
+          let ip = ipAddress + "." + i;
+          ips.push(ip);
+          let listItem = document.createElement("li");
+          listItem.appendChild(document.createTextNode(ip));
+          list.appendChild(listItem);
+        }
+      }
+      
+      function copyToClipboard() {
+        const ipList = document.getElementById("ip-list").innerText;
+        navigator.clipboard.writeText(ipList);
+      }
+    </script>
+  </body>
 </html>
